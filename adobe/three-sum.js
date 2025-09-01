@@ -9,7 +9,6 @@ const twoSumSorted = (nums, start, target) => {
     else if (sum > target) r--;
     else {
       pairs.push([nums[l], nums[r]]);
-      // skip duplicates on both sides
       const leftVal = nums[l],
         rightVal = nums[r];
       while (l < r && nums[l] === leftVal) l++;
@@ -24,10 +23,9 @@ const threeSum = (nums) => {
   const res = [];
 
   for (let i = 0; i < nums.length - 2; i++) {
-    if (i > 0 && nums[i] === nums[i - 1]) continue; // skip duplicate first number
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
 
     const target = -nums[i];
-    // find pairs in the suffix that sum to target
     const pairs = twoSumSorted(nums, i + 1, target);
 
     for (const [a, b] of pairs) {
