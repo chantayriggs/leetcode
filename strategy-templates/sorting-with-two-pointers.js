@@ -16,7 +16,7 @@ const solveWithTwoPointers = (nums) => {
     const value = nums[l] + nums[r]; // or min/max depending on problem
     best = Math.max(best, value);
 
-    if (/* condition to move left */ true) l++;
+    if (/* condition to move left */) l++;
     else r--;
   }
 
