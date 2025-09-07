@@ -1,36 +1,39 @@
-const twoSumSorted = (nums, start, target) => {
-  const pairs = [];
-  let l = start,
-    r = nums.length - 1;
-
-  while (l < r) {
-    const sum = nums[l] + nums[r];
-    if (sum < target) l++;
-    else if (sum > target) r--;
-    else {
-      pairs.push([nums[l], nums[r]]);
-      const leftVal = nums[l],
-        rightVal = nums[r];
-      while (l < r && nums[l] === leftVal) l++;
-      while (l < r && nums[r] === rightVal) r--;
-    }
-  }
-  return pairs;
-};
-
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
 const threeSum = (nums) => {
   nums.sort((a, b) => a - b);
-  const res = [];
+  const results = [];
 
-  for (let i = 0; i < nums.length - 2; i++) {
-    if (i > 0 && nums[i] === nums[i - 1]) continue;
+  for (let i = 0; i < nums.length; i++) {
+    const pinnedValue = nums[i];
+    if (i !== 0 && nums[i - 1] === pinnedValue) continue;
 
-    const target = -nums[i];
-    const pairs = twoSumSorted(nums, i + 1, target);
+    let l = i + 1;
+    let r = nums.length - 1;
 
-    for (const [a, b] of pairs) {
-      res.push([nums[i], a, b]);
+    while (l < r) {
+      if (l === i) l++;
+      if (r === i) r--;
+
+      const leftElement = nums[l];
+      const rightElement = nums[r];
+      const sum = leftElement + rightElement + pinnedValue;
+
+      if (sum === 0) {
+        results.push([leftElement, pinnedValue, rightElement]);
+        l++;
+        r--;
+
+        while (l < r && nums[l] === nums[l - 1]) l++;
+        while (l < r && nums[r] === nums[r + 1]) r--;
+      } else {
+        if (sum > 0) r--;
+        if (sum < 0) l++;
+      }
     }
   }
-  return res;
+
+  return results;
 };
